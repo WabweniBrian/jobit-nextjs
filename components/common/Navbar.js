@@ -12,30 +12,15 @@ import { links } from "../../data/links";
 import Notifications from "./Notifications";
 import Dropdown from "./Dropdown";
 import ActiveLink from "./ActiveLink";
+import useDarkMode from "../../helpers/useDarkMode";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
-
-  let rootDoc;
-  if (typeof window !== "undefined") {
-    rootDoc = document.querySelector(":root");
-  }
+  const [mode, toggleMode] = useDarkMode("JobIt-Next-theme-mode");
   const [showSearchBar, setShowSearchBar] = useState(false);
   const router = useRouter();
 
-  const { dispatch, darkMode, isSidebarOpen } = useUiContext();
-
-  // Dark mode toggle
-  const handleDarkMode = () => {
-    dispatch({ type: actioTypes.toggleDarkMode });
-  };
-
-  // Store darkmode value to localStorage;
-  useEffect(() => {
-    if (darkMode) rootDoc.classList.add("dark");
-    else rootDoc.classList.remove("dark");
-    localStorage.setItem("JobIt-Next-theme-mode", JSON.stringify(darkMode));
-  }, [darkMode]);
+  const { dispatch, isSidebarOpen } = useUiContext();
 
   const handleDropdown = () => {
     dispatch({ type: actioTypes.toggleDropdown });
@@ -184,10 +169,10 @@ const Navbar = () => {
         {/*----------------------------- Dark mode toggle-------------------------------------------------- */}
         <motion.div
           className="icon-box bg-slate-100 dark:bg-[#2b2b35]"
-          onClick={handleDarkMode}
+          onClick={toggleMode}
           whileTap={{ scale: 0.5 }}
         >
-          {darkMode ? <FiSun /> : <FiMoon />}
+          {mode === "dark" ? <FiSun /> : <FiMoon />}
         </motion.div>
         <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-700"></div>
 

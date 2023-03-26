@@ -13,7 +13,6 @@ export const actioTypes = {
   closeFilterMenu: "CLOSE_FILTER_MENU",
   openEventFilters: "OPEN_EVENT_FILTER_MENU",
   closeEventFilters: "CLOSE_EVENT_FILTER_MENU",
-  toggleDarkMode: "TOGGLE_DARK_MODE",
 };
 
 export const uiReducer = (state, action) => {
@@ -56,9 +55,6 @@ export const uiReducer = (state, action) => {
       break;
     case actioTypes.closeEventFilters:
       return { ...state, isEventFiltersOpen: false };
-      break;
-    case actioTypes.toggleDarkMode:
-      return { ...state, darkMode: !state.darkMode };
       break;
 
     default:
