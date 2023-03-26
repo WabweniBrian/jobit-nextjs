@@ -1,26 +1,284 @@
-html,
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&family=Nunito&family=Nunito+Sans:wght@400;600&family=Poppins:ital,wght@0,400;0,500;1,300;1,400&family=Questrial&family=Raleway&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Testing on phone offline */
+@font-face {
+  font-family: myFont;
+  src: url("../public/Questrial-Regular.ttf") format("truetype");
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+*::-webkit-scrollbar {
+  @apply w-[5px] h-[5px];
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded bg-slate-400;
+}
+
+*::-webkit-scrollbar-track {
+  @apply !bg-transparent;
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  @apply font-questrial bg-main text-slate-700 dark:bg-dark-main dark:text-slate-300;
+  font-family: myFont;
 }
 
+/* General styles */
+p,
 a {
-  color: inherit;
-  text-decoration: none;
+  @apply text-muted;
 }
 
-* {
-  box-sizing: border-box;
+a.btn {
+  @apply opacity-100;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+footer a {
+  @apply transition-a text-sm;
+}
+
+footer a:hover {
+  @apply text-primary ml-2;
+}
+
+.image-wrapper > span {
+  @apply !relative;
+}
+
+.card {
+  @apply bg-white dark:bg-dark-card rounded-lg border dark:border-hover-color;
+}
+
+.card-bordered {
+  @apply border dark:border-hover-color;
+}
+
+.btn {
+  @apply px-4 py-[0.35rem] rounded-md transition-a sm:cursor-pointer capitalize flex-shrink-0;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-[#0a986e];
+}
+
+.btn-primary-light {
+  @apply bg-primary-light text-primary hover:bg-[#07ae7146];
+}
+
+.icon-box {
+  @apply w-9 h-9 rounded-full grid place-items-center text-muted hover:bg-slate-200  dark:hover:bg-hover-color transition-a sm:cursor-pointer flex-shrink-0;
+}
+
+/* Back to top button */
+.back-to-top-btn {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.back-to-top-btn.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Loader */
+.loader {
+  @apply w-20 h-20 border-4 border-primary rounded-full;
+  border-block-start-color: transparent;
+  animation: rotate 1s ease-in-out infinite;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
   }
-  body {
-    color: white;
-    background: black;
+}
+
+/* Navbar links */
+.navbar ul a {
+  @apply text-sm relative transition-a w-fit;
+}
+.navbar ul a {
+  @apply before:absolute before:w-full before:h-[2px] before:left-0 before:-bottom-2 md:before:-bottom-4 before:bg-primary before:scale-0 before:transition-a;
+}
+
+.navbar ul a.active,
+.navbar ul a:hover {
+  @apply text-primary before:scale-100;
+}
+
+.mobile-modal.open,
+.filter-modal.open,
+.mobile-dialog.open,
+.filter-dialog.open {
+  @apply translate-x-0 pointer-events-auto opacity-100;
+}
+
+.apexcharts-menu-icon {
+  @apply hidden;
+}
+
+.filter {
+  @apply flex-align-center gap-x-2 bg-white dark:bg-dark-card my-1 md:mt-0 px-4 py-2 card-shadow dark:shadow-none md:shadow-none rounded-lg w-full;
+}
+
+/* Check box & radio box */
+.input-check label,
+.input-radio label {
+  @apply relative cursor-pointer flex items-center text-slate-500 select-none;
+}
+
+.input-check input[type="checkbox"],
+.input-radio input[type="radio"] {
+  @apply cursor-pointer opacity-0 absolute;
+}
+
+.input-check label::before {
+  content: "";
+  @apply w-4 h-4 mr-2 rounded border border-primary;
+}
+
+.input-check input[type="checkbox"]:checked + label::before {
+  content: "✔";
+  @apply grid place-items-center text-slate-100 text-[0.7rem] bg-primary;
+}
+
+/* Pagination */
+ul.pagination li.active {
+  @apply bg-primary shadow-lg rounded-full shadow-primary;
+}
+ul.pagination li.active a {
+  @apply !text-white;
+}
+
+/* Filter dialog and modal */
+.filter-modal {
+  @apply fixed w-full h-full top-0 left-0 bg-black/50 z-10 opacity-0 pointer-events-none transition-a md:static md:opacity-100 md:pointer-events-auto md:bg-transparent;
+}
+
+.filter-dialog {
+  @apply absolute  p-3 md:p-0 bg-white dark:bg-dark-card h-screen max-w-[300px] -translate-x-[500px] w-full max-h-screen overflow-auto transition-a md:static md:max-w-full md:translate-x-0 md:max-h-fit md:h-fit md:bg-main md:dark:!bg-dark-main;
+}
+
+/* Inputs */
+input:autofill,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  @apply input-shadow dark:input-dark-shadow dark:inputAutofillColor;
+}
+
+.form-input .input {
+  @apply outline-none h-8 border border-slate-300  dark:border-hover-color bg-main dark:bg-dark-main  rounded-md px-[0.8rem] w-full text-base mb-5;
+}
+
+.form-input label,
+.select-input label {
+  @apply absolute top-[0.15rem] left-[0.9rem] text-[#8d9193]  px-[0.15rem] pointer-events-none;
+  transition: top 0.3s ease-in-out;
+}
+
+.form-input .input:focus,
+.form-input .input:valid {
+  @apply !border-primary;
+}
+
+.form-input .input:focus ~ label,
+.form-input .input:valid ~ label {
+  @apply -top-[12px] left-[15px] text-sm text-primary bg-main dark:bg-dark-main;
+}
+
+.form-input .input:-webkit-autofill {
+  @apply border-primary;
+}
+
+input:-webkit-autofill ~ label {
+  @apply -top-[12px] left-[15px] text-sm text-primary bg-main dark:bg-dark-main;
+}
+
+/* -------------------------PAGINATION---------------------- */
+.wb-pagination {
+  @apply flex-align-center justify-end mt-4 w-full px-4 select-none;
+}
+
+.wb-pagination::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.wb-pagination .pagination-item {
+  @apply p-2;
+}
+
+.wb-pagination .pagination-item .pagination-link {
+  @apply text-inherit w-8 h-8 grid place-items-center mx-3 text-sm;
+}
+
+.wb-pagination .prev,
+.wb-pagination .next {
+  @apply inline-flex text-primary;
+}
+
+.wb-pagination .prev {
+  @apply mr-4;
+}
+.wb-pagination .next {
+  @apply ml-4;
+}
+
+.disabled {
+  @apply opacity-40;
+}
+
+.wb-pagination .pagination-item.pagination-link-active .pagination-link {
+  @apply bg-primary rounded-full text-white shadow-md shadow-primary/60;
+}
+
+@media (max-width: 640px) {
+  .wb-pagination {
+    @apply max-w-[320px] w-full overflow-auto;
   }
+}
+
+#nprogress .bar {
+  @apply !bg-primary;
+}
+
+#nprogress .peg {
+  @apply !shadow-none;
+}
+
+#nprogress .spinner-icon {
+  @apply !border-t-primary !border-l-primary;
+}
+
+/* React Calendar */
+
+.react-calendar {
+  @apply !bg-white !w-full h-full dark:!bg-dark-card !border-none font-questrial text-slate-500 dark:text-slate-300;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  @apply !bg-slate-200 dark:!bg-slate-600 rounded-lg;
+}
+
+.react-calendar__tile:enabled:hover:not(.react-calendar__tile--active),
+.react-calendar__tile:enabled:focus:not(.react-calendar__tile--active) {
+  @apply !bg-slate-200 dark:!bg-slate-600 rounded-lg;
+}
+
+.react-calendar__tile--active {
+  @apply !bg-primary shadow-md rounded-md;
+}
+
+.react-calendar__tile--now {
+  @apply text-slate-500 rounded-lg;
 }

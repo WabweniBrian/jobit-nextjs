@@ -1,0 +1,58 @@
+export const schedules = [
+  {
+    id: 1,
+    title: "Interview with the Product Manager",
+    date: 20,
+    day: "Tue",
+    time: "09:00 - 10:00 AM",
+  },
+  {
+    id: 2,
+    title: "React meetup at Mountain Valley",
+    date: 13,
+    day: "Fri",
+    time: "10:00 - 12:00 PM",
+  },
+  {
+    id: 3,
+    title: "Post new Job and write proposals",
+    date: 15,
+    day: "Wed",
+    time: "09:00 - 10:00 PM",
+  },
+  {
+    id: 4,
+    title: "Meet the CEO, Google",
+    date: 20,
+    day: "Mon",
+    time: "08:00 - 10:00 AM",
+  },
+  {
+    id: 5,
+    title: "Work on client's project",
+    date: 20,
+    day: "Tue",
+    time: "09:00 - 10:00 PM",
+  },
+  {
+    id: 6,
+    title: "Analyse client reviews",
+    date: 20,
+    day: "Sat",
+    time: "10:00 - 11:00 PM",
+  },
+  {
+    id: 7,
+    title: "Personal leisure, go for hiking",
+    date: 20,
+    day: "Sun",
+    time: "12:00 - 04:00 PM",
+  },
+  {
+    id: 8,
+    title: "Complete office Paperwork",
+    date: 20,
+    day: "Tue",
+    time: "09:00 - 10:00 PM",
+  },
+];
