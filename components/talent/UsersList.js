@@ -18,7 +18,7 @@ const UsersList = ({ users }) => {
                 />
               </div>
               <div>
-                <Link href={`/talent/${user.id}`}>
+                <Link href="/talent/[id]" as={`/talent/${user?.id}`}>
                   <a className="group-hover:text-primary transition-a">
                     <h1 className="text-xl font-semibold">
                       {user?.name} (${user?.hourly_rate}/hr)

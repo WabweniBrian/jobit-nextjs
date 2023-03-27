@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FiChevronsRight, FiChevronsLeft } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 import UsersList from "../../components/talent/UsersList";
+import { server } from "../../config";
 
 const Talent = ({ users }) => {
   // Pagination-----------------------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ const Talent = ({ users }) => {
 export default Talent;
 
 export const getStaticProps = async () => {
-  const res = await fetch("http://localhost:3000/api/users");
+  const res = await fetch(`${server}/api/users`);
 
   const users = await res.json();
 
@@ -55,6 +56,5 @@ export const getStaticProps = async () => {
     props: {
       users,
     },
-    revalidate: 60,
   };
 };

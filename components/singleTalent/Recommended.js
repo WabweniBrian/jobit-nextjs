@@ -16,7 +16,7 @@ const Recommended = ({ users }) => {
                 className="w-8 h-8 rounded-full"
               />
               <div>
-                <Link href={`/talent/${user.id}`}>
+                <Link href="/talent/[id]" as={`/talent/${user?.id}`}>
                   <a className="group-hover:text-primary">
                     <h1 className="text-lg font-bold">{user?.name}</h1>
                   </a>

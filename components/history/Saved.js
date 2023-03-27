@@ -25,7 +25,7 @@ const Saved = () => {
               </div>
             </div>
             <div className="mt-5">
-              <Link href="/history">
+              <Link href="/jobs/123">
                 <a className="group-hover:text-primary">
                   <h1 className="text-lg font-bold capitalize">
                     web developer

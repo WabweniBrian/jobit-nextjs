@@ -20,7 +20,7 @@ const Offers = () => {
               <div className="flex-align-center gap-2">
                 <img src="/images/twitter.png" alt="" className="w-10" />
                 <div>
-                  <Link href="/history">
+                  <Link href="/jobs/123">
                     <a className="group-hover:text-primary">
                       <h1 className="text-lg font-bold capitalize">Twitter</h1>
                     </a>

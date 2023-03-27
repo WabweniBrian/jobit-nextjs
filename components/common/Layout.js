@@ -10,7 +10,7 @@ import BackToTopButton from "./BackToTopButton";
 const Layout = ({ children }) => {
   const { dispatch } = useUiContext();
   const [showButton, setShowButton] = useState(false);
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleCloseDropdown = (e) => {
     dispatch({ type: actioTypes.closeDropdown });

@@ -24,7 +24,7 @@ const JobList = ({ jobs }) => {
                 className="w-14 rounded-lg"
               />
               <div>
-                <Link href={`/jobs/${job?.id}`}>
+                <Link href="/jobs/[id]" as={`/jobs/${job?.id}`}>
                   <a className="group-hover:text-primary transition-a">
                     <h1 className="text-xl font-semibold">{job?.title}</h1>
                   </a>

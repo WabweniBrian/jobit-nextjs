@@ -11,6 +11,7 @@ import EventFilters from "../components/Events/EventFilters";
 import EventsList from "../components/Events/EventsList";
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
+import { server } from "../config";
 const Events = ({ events }) => {
   const { dispatch, isEventFiltersOpen } = useUiContext();
   const handleCloseEventFilters = (e) => {
@@ -110,7 +111,7 @@ const Events = ({ events }) => {
 export default Events;
 
 export const getStaticProps = async () => {
-  const res = await fetch("http://localhost:3000/api/meetups");
+  const res = await fetch(`${server}/api/meetups`);
 
   const events = await res.json();
 
@@ -118,6 +119,5 @@ export const getStaticProps = async () => {
     props: {
       events,
     },
-    revalidate: 60,
   };
 };

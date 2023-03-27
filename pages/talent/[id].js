@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 import useFetch from "../api/useFetch";
 import Recommended from "../../components/singleTalent/Recommended";
 import Skills from "../../components/singleTalent/Skills";
+import { server } from "../../config";
 
 const SingleTalent = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: users } = useFetch("http://localhost:3000/api/users");
+  const { data: users } = useFetch(`${server}/api/users`);
   const recommendedUsers = users.filter((user) => user.id !== id);
   return (
     <div className="grid md:grid-cols-3 gap-x-14">
@@ -181,33 +182,27 @@ const SingleTalent = ({ user }) => {
 
 export default SingleTalent;
 
-export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:3000/api/users");
-
-  const users = await res.json();
-
-  const paths = users.map((user) => ({ params: { id: user.id.toString() } }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
-
 export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:3000/api/users/${params.id}`);
+  const res = await fetch(`${server}/api/users/${params.id}`);
 
   const user = await res.json();
-
-  if (!user) {
-    return {
-      notFound: true,
-    };
-  }
 
   return {
     props: {
       user,
     },
+  };
+};
+
+export const getStaticPaths = async () => {
+  const res = await fetch(`${server}/api/users`);
+
+  const users = await res.json();
+  const ids = users.map((user) => user.id);
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
+
+  return {
+    paths,
+    fallback: false,
   };
 };

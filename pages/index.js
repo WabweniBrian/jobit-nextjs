@@ -6,6 +6,7 @@ import LatestJobs from "../components/home/LatestJobs";
 import FeaturedCompanies from "../components/home/FeaturedCompanies";
 import Recommended from "../components/home/Recommended";
 import Schedule from "../components/home/Schedule";
+import { server } from "../config";
 
 const Home = ({ jobs }) => {
   return (
@@ -57,7 +58,7 @@ const Home = ({ jobs }) => {
 export default Home;
 
 export const getStaticProps = async () => {
-  const res = await fetch(`http://localhost:3000/api/jobs`);
+  const res = await fetch(`${server}/api/jobs`);
 
   const jobs = await res.json();
 

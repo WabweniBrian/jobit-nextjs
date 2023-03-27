@@ -15,7 +15,7 @@ const RelatedJobs = ({ jobs }) => {
               className="w-10 rounded-lg"
             />
             <div className="flex-1">
-              <Link href={`/jobs/${job?.id}`}>
+              <Link href="/jobs/[id]" as={`/jobs/${job?.id}`}>
                 <a className="group-hover:text-primary transition-a">
                   <h1 className="font-bold text-lg">{job?.title}</h1>
                 </a>

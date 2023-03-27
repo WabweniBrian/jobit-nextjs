@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import Link from "next/link";
 import JobSkillTags from "../../components/common/JobSkillTags";
@@ -5,10 +6,12 @@ import { BiBookmark, BiCircle, BiShareAlt } from "react-icons/bi";
 import RelatedJobs from "../../components/singleJob/RelatedJobs";
 import { useRouter } from "next/router";
 import useFetch from "../api/useFetch";
+import { server } from "../../config";
 
 const SingleJob = ({ job }) => {
   const router = useRouter();
   const { id } = router.query;
+
   const {
     title,
     company_name,
@@ -23,7 +26,7 @@ const SingleJob = ({ job }) => {
     logo_url,
   } = job;
 
-  const { data: jobs } = useFetch("http://localhost:3000/api/jobs");
+  const { data: jobs } = useFetch(`${server}/api/jobs`);
   const relatedJobs = jobs.filter(
     (job) =>
       Number(job.id) !== Number(id) &&
@@ -35,25 +38,18 @@ const SingleJob = ({ job }) => {
       <div className="md:col-span-2 h-fit md:sticky top-0">
         <div className="card overflow-hidden">
           <div className="relative">
-            <div className="image-wrapper">
-              <Image
-                src="/photo-3.jpg"
-                alt="Banner"
-                layout="fill"
-                className="rounded-lg !relative  !w-full !h-[200px] !object-cover"
-              />
-            </div>
-            <div className="-mt-28">
-              <Image
-                src={"/whatsapp.png"}
-                alt="Logo"
-                height={80}
-                width={80}
-                className="!relative !h-20  rounded-lg"
-              />
-            </div>
+            <img
+              src="/images/photo-3.jpg"
+              alt=""
+              className="h-full sm:h-[200px] object-cover w-full"
+            />
+            <img
+              src={logo_url || "/images/photo-3.jpg"}
+              alt=""
+              className="w-16 left-10 -bottom-8 absolute rounded-xl"
+            />
           </div>
-          <div className="pt-5 px-6 pb-6">
+          <div className="pt-10 px-6 pb-6">
             <div className="flex-center-between">
               <h1 className="text-xl font-semibold">{title}</h1>
               <div className="flex-align-center gap-x-2">
@@ -160,33 +156,27 @@ const SingleJob = ({ job }) => {
 
 export default SingleJob;
 
-export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:3000/api/jobs");
-
-  const jobs = await res.json();
-
-  const paths = jobs.map((job) => ({ params: { id: job.id.toString() } }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
-
 export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:3000/api/jobs/${params.id}`);
+  const res = await fetch(`${server}/api/jobs/${params.id}`);
 
   const job = await res.json();
-
-  if (!job) {
-    return {
-      notFound: true,
-    };
-  }
 
   return {
     props: {
       job,
     },
+  };
+};
+
+export const getStaticPaths = async () => {
+  const res = await fetch(`${server}/api/jobs`);
+
+  const jobs = await res.json();
+  const ids = jobs.map((job) => job.id);
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
+
+  return {
+    paths,
+    fallback: false,
   };
 };
