@@ -6,7 +6,7 @@ import { server } from "../../config";
 import useFetch from "../api/useFetch";
 
 const Talent = () => {
-  const { data: users } = useFetch(`${server}/api/users`);
+  const { data: users, loading } = useFetch(`${server}/api/users`);
   // Pagination-----------------------------------------------------------------------------------------------------
   const [offset, setOffset] = useState(0);
   const usersPerPage = 4;
@@ -24,25 +24,27 @@ const Talent = () => {
     <div>
       <h1 className="font-bold text-2xl">Explore Talent</h1>
       <p>Tuesday, 24 Jan 2023</p>
-      <UsersList users={currentUsers} />
-      <div className="mt-5">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel={<FiChevronsRight />}
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
-          pageCount={pageCount}
-          previousLabel={<FiChevronsLeft />}
-          renderOnZeroPageCount={null}
-          containerClassName="wb-pagination"
-          pageClassName="pagination-item"
-          pageLinkClassName="pagination-link"
-          activeClassName="pagination-link-active"
-          previousLinkClassName="prev"
-          nextLinkClassName="next"
-          disabledClassName="disabled"
-        />
-      </div>
+      <UsersList users={currentUsers} loading={loading} />
+      {!loading && (
+        <div className="mt-5">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<FiChevronsRight />}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            pageCount={pageCount}
+            previousLabel={<FiChevronsLeft />}
+            renderOnZeroPageCount={null}
+            containerClassName="wb-pagination"
+            pageClassName="pagination-item"
+            pageLinkClassName="pagination-link"
+            activeClassName="pagination-link-active"
+            previousLinkClassName="prev"
+            nextLinkClassName="next"
+            disabledClassName="disabled"
+          />
+        </div>
+      )}
     </div>
   );
 };

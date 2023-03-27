@@ -12,7 +12,7 @@ const SingleJob = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: job } = useFetch(`${server}/api/jobs/${id}`);
+  const { data: job, loading } = useFetch(`${server}/api/jobs/${id}`);
 
   const {
     title,
@@ -35,7 +35,7 @@ const SingleJob = () => {
       (job.title === title || job.company_name === company_name)
   );
 
-  return (
+  return !loading ? (
     <div className="grid md:grid-cols-3 gap-x-14">
       <div className="md:col-span-2 h-fit md:sticky top-0">
         <div className="card overflow-hidden">
@@ -152,6 +152,10 @@ const SingleJob = () => {
       <div className="md:col-span-1 h-fit md:sticky top-0">
         <RelatedJobs jobs={relatedJobs} />
       </div>
+    </div>
+  ) : (
+    <div className="min-h-screen flex-center-center">
+      <div className="loader" />
     </div>
   );
 };

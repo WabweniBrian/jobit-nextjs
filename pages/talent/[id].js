@@ -9,10 +9,10 @@ import { server } from "../../config";
 const SingleTalent = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: user } = useFetch(`${server}/api/users/${id}`);
+  const { data: user, loading } = useFetch(`${server}/api/users/${id}`);
   const { data: users } = useFetch(`${server}/api/users`);
   const recommendedUsers = users.filter((user) => user.id !== id);
-  return (
+  return !loading ? (
     <div className="grid md:grid-cols-3 gap-x-14">
       <div className="md:col-span-2 h-fit md:sticky top-0">
         <div className="card overflow-hidden">
@@ -177,6 +177,10 @@ const SingleTalent = () => {
       <div className="md:col-span-1 h-fit md:sticky top-0">
         <Recommended users={recommendedUsers} />
       </div>
+    </div>
+  ) : (
+    <div className="min-h-screen flex-center-center">
+      <div className="loader" />
     </div>
   );
 };

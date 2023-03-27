@@ -8,9 +8,11 @@ import Recommended from "../components/home/Recommended";
 import Schedule from "../components/home/Schedule";
 import { server } from "../config";
 import useFetch from "./api/useFetch";
+import Skeleton from "../components/loading-skeleton/Skeleton";
 
 const Home = () => {
-  const { data: jobs } = useFetch(`${server}/api/jobs`);
+  const { data: jobs, loading } = useFetch(`${server}/api/jobs`);
+
   return (
     <div>
       <h1 className="font-bold text-2xl">Welcome, Brian</h1>
@@ -32,7 +34,16 @@ const Home = () => {
                 </a>
               </Link>
             </div>
-            <LatestJobs jobs={jobs} />
+
+            {loading ? (
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {Array.apply(null, { length: 4 }).map((_, i) => (
+                  <Skeleton key={i} />
+                ))}
+              </div>
+            ) : (
+              <LatestJobs jobs={jobs} />
+            )}
             <FeaturedCompanies />
           </div>
           {/*---------------------------------------- Recommended & Schedule------------------------------------- */}
@@ -47,7 +58,7 @@ const Home = () => {
                   </a>
                 </Link>
               </div>
-              <Recommended jobs={jobs} />
+              <Recommended jobs={jobs} loading={loading} />
               <Schedule />
             </div>
           </div>

@@ -1,5 +1,8 @@
-const EventsList = ({ events }) => {
-  return (
+import Skeleton from "../loading-skeleton/Skeleton";
+
+/* eslint-disable @next/next/no-img-element */
+const EventsList = ({ events, loading }) => {
+  return !loading ? (
     <div className="flex flex-wrap gap-3 mt-5">
       {events.map((event) => (
         <div className="card p-2 flex-1 basis-[18rem]" key={event.id}>
@@ -51,6 +54,14 @@ const EventsList = ({ events }) => {
               attend
             </button>
           </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div className="mt-6 grid grid-cols-2 md:grid-cols-2 gap-4">
+      {Array.apply(null, { length: 4 }).map((_, i) => (
+        <div key={i} className="h-[350px]">
+          <Skeleton />
         </div>
       ))}
     </div>

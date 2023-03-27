@@ -2,9 +2,10 @@
 import Link from "next/link";
 import JobSkillTags from "../common/JobSkillTags";
 import { FaBookmark } from "react-icons/fa";
+import Skeleton from "../loading-skeleton/Skeleton";
 
-const UsersList = ({ users }) => {
-  return (
+const UsersList = ({ users, loading }) => {
+  return !loading ? (
     <div className="mt-6 flex flex-wrap gap-4">
       {users.map((user) => (
         <div className="card p-4 group flex-1 basis-[25rem]" key={user.id}>
@@ -56,6 +57,14 @@ const UsersList = ({ users }) => {
             </button>
             <button className="btn btn-primary flex-shrink-0">Hire</button>
           </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {Array.apply(null, { length: 4 }).map((_, i) => (
+        <div key={i}>
+          <Skeleton />
         </div>
       ))}
     </div>

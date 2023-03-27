@@ -22,7 +22,9 @@ import { server } from "../../../config";
 const Search = () => {
   const router = useRouter();
   const { searchTerm } = router.query;
-  const { data: jobs } = useFetch(`${server}/api/jobs/search/${searchTerm}`);
+  const { data: jobs, loading } = useFetch(
+    `${server}/api/jobs/search/${searchTerm}`
+  );
   const { isFilterMenuOpen, dispatch } = useUiContext();
   const handleCloseFiltermenu = (e) => {
     if (e.target.classList.contains("filter-modal"))
@@ -285,26 +287,28 @@ const Search = () => {
             </div>
 
             <div className="mt-4">
-              <JobList jobs={currentJobs} />
+              <JobList jobs={currentJobs} loading={loading} />
             </div>
-            <div className="mt-5">
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel={<FiChevronsRight />}
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={2}
-                pageCount={pageCount}
-                previousLabel={<FiChevronsLeft />}
-                renderOnZeroPageCount={null}
-                containerClassName="wb-pagination"
-                pageClassName="pagination-item"
-                pageLinkClassName="pagination-link"
-                activeClassName="pagination-link-active"
-                previousLinkClassName="prev"
-                nextLinkClassName="next"
-                disabledClassName="disabled"
-              />
-            </div>
+            {!loading && (
+              <div className="mt-5">
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel={<FiChevronsRight />}
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel={<FiChevronsLeft />}
+                  renderOnZeroPageCount={null}
+                  containerClassName="wb-pagination"
+                  pageClassName="pagination-item"
+                  pageLinkClassName="pagination-link"
+                  activeClassName="pagination-link-active"
+                  previousLinkClassName="prev"
+                  nextLinkClassName="next"
+                  disabledClassName="disabled"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

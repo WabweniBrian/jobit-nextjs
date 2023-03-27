@@ -20,7 +20,7 @@ const Events = () => {
       dispatch({ type: actioTypes.closeEventFilters });
   };
 
-  const { data: events } = useFetch(`${server}/api/meetups`);
+  const { data: events, loading } = useFetch(`${server}/api/meetups`);
   // Pagination-----------------------------------------------------------------------------------------------------
   const [offset, setOffset] = useState(0);
   const eventsPerPage = 4;
@@ -84,25 +84,27 @@ const Events = () => {
                 </div>
               </div>
             </div>
-            <EventsList events={currentEvents} />
-            <div className="mt-5">
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel={<FiChevronsRight />}
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={2}
-                pageCount={pageCount}
-                previousLabel={<FiChevronsLeft />}
-                renderOnZeroPageCount={null}
-                containerClassName="wb-pagination"
-                pageClassName="pagination-item"
-                pageLinkClassName="pagination-link"
-                activeClassName="pagination-link-active"
-                previousLinkClassName="prev"
-                nextLinkClassName="next"
-                disabledClassName="disabled"
-              />
-            </div>
+            <EventsList events={currentEvents} loading={loading} />
+            {!loading && (
+              <div className="mt-5">
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel={<FiChevronsRight />}
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel={<FiChevronsLeft />}
+                  renderOnZeroPageCount={null}
+                  containerClassName="wb-pagination"
+                  pageClassName="pagination-item"
+                  pageLinkClassName="pagination-link"
+                  activeClassName="pagination-link-active"
+                  previousLinkClassName="prev"
+                  nextLinkClassName="next"
+                  disabledClassName="disabled"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

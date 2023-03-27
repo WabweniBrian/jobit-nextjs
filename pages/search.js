@@ -276,24 +276,26 @@ const Search = () => {
             <div className="mt-4">
               <JobList jobs={currentJobs} loading={loading} />
             </div>
-            <div className="mt-5">
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel={<FiChevronsRight />}
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={2}
-                pageCount={pageCount}
-                previousLabel={<FiChevronsLeft />}
-                renderOnZeroPageCount={null}
-                containerClassName="wb-pagination"
-                pageClassName="pagination-item"
-                pageLinkClassName="pagination-link"
-                activeClassName="pagination-link-active"
-                previousLinkClassName="prev"
-                nextLinkClassName="next"
-                disabledClassName="disabled"
-              />
-            </div>
+            {!loading && (
+              <div className="mt-5">
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel={<FiChevronsRight />}
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel={<FiChevronsLeft />}
+                  renderOnZeroPageCount={null}
+                  containerClassName="wb-pagination"
+                  pageClassName="pagination-item"
+                  pageLinkClassName="pagination-link"
+                  activeClassName="pagination-link-active"
+                  previousLinkClassName="prev"
+                  nextLinkClassName="next"
+                  disabledClassName="disabled"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
