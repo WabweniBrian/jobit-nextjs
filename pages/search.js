@@ -24,7 +24,7 @@ const Search = () => {
     if (e.target.classList.contains("filter-modal"))
       dispatch({ type: actioTypes.closeFilterMenu });
   };
-  const { data: jobs } = useFetch(`${server}/api/jobs`);
+  const { data: jobs, loading } = useFetch(`${server}/api/jobs`);
 
   const [selectedFilters, setSelectedFilters] = useState({});
 
@@ -274,7 +274,7 @@ const Search = () => {
               </div>
             </div>
             <div className="mt-4">
-              <JobList jobs={currentJobs} />
+              <JobList jobs={currentJobs} loading={loading} />
             </div>
             <div className="mt-5">
               <ReactPaginate
