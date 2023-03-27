@@ -16,11 +16,13 @@ import JobAlert from "../../../components/search/JobAlert";
 import SearchFilters from "../../../components/search/SearchFilters";
 import { useUiContext } from "../../../contexts/UiContext";
 import { actioTypes } from "../../../reducers/uiReducer";
+import useFetch from "../../api/useFetch";
+import { server } from "../../../config";
 
-const Search = ({ jobs }) => {
+const Search = () => {
   const router = useRouter();
   const { searchTerm } = router.query;
-
+  const { data: jobs } = useFetch(`${server}/api/jobs/search/${searchTerm}`);
   const { isFilterMenuOpen, dispatch } = useUiContext();
   const handleCloseFiltermenu = (e) => {
     if (e.target.classList.contains("filter-modal"))
@@ -311,18 +313,3 @@ const Search = ({ jobs }) => {
 };
 
 export default Search;
-
-export const getServerSideProps = async (context) => {
-  console.log(context);
-  const res = await fetch(
-    `http://localhost:3000/api/jobs/search/${context.params.searchTerm}`
-  );
-
-  const jobs = await res.json();
-
-  return {
-    props: {
-      jobs,
-    },
-  };
-};

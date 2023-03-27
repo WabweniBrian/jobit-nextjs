@@ -3,18 +3,20 @@ import { FiChevronsRight, FiChevronsLeft } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 import UsersList from "../../components/talent/UsersList";
 import { server } from "../../config";
+import useFetch from "../api/useFetch";
 
-const Talent = ({ users }) => {
+const Talent = () => {
+  const { data: users } = useFetch(`${server}/api/users`);
   // Pagination-----------------------------------------------------------------------------------------------------
   const [offset, setOffset] = useState(0);
-  const jobsPerPage = 4;
+  const usersPerPage = 4;
 
-  const endOffset = offset + jobsPerPage;
+  const endOffset = offset + usersPerPage;
   const currentUsers = users.slice(offset, endOffset);
-  const pageCount = Math.ceil(users.length / jobsPerPage);
+  const pageCount = Math.ceil(users.length / usersPerPage);
 
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * jobsPerPage) % users.length;
+    const newOffset = (e.selected * usersPerPage) % users.length;
     setOffset(newOffset);
   };
 
@@ -46,15 +48,3 @@ const Talent = ({ users }) => {
 };
 
 export default Talent;
-
-export const getStaticProps = async () => {
-  const res = await fetch(`${server}/api/users`);
-
-  const users = await res.json();
-
-  return {
-    props: {
-      users,
-    },
-  };
-};

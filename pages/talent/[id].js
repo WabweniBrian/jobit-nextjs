@@ -6,9 +6,10 @@ import Recommended from "../../components/singleTalent/Recommended";
 import Skills from "../../components/singleTalent/Skills";
 import { server } from "../../config";
 
-const SingleTalent = ({ user }) => {
+const SingleTalent = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { data: user } = useFetch(`${server}/api/users/${id}`);
   const { data: users } = useFetch(`${server}/api/users`);
   const recommendedUsers = users.filter((user) => user.id !== id);
   return (
@@ -181,28 +182,3 @@ const SingleTalent = ({ user }) => {
 };
 
 export default SingleTalent;
-
-export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`${server}/api/users/${params.id}`);
-
-  const user = await res.json();
-
-  return {
-    props: {
-      user,
-    },
-  };
-};
-
-export const getStaticPaths = async () => {
-  const res = await fetch(`${server}/api/users`);
-
-  const users = await res.json();
-  const ids = users.map((user) => user.id);
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};

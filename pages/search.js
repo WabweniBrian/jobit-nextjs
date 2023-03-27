@@ -15,13 +15,16 @@ import JobAlert from "../components/search/JobAlert";
 import SearchFilters from "../components/search/SearchFilters";
 import { useUiContext } from "../contexts/UiContext";
 import { actioTypes } from "../reducers/uiReducer";
+import useFetch from "./api/useFetch";
+import { server } from "../config";
 
-const Search = ({ jobs }) => {
+const Search = () => {
   const { isFilterMenuOpen, dispatch } = useUiContext();
   const handleCloseFiltermenu = (e) => {
     if (e.target.classList.contains("filter-modal"))
       dispatch({ type: actioTypes.closeFilterMenu });
   };
+  const { data: jobs } = useFetch(`${server}/api/jobs`);
 
   const [selectedFilters, setSelectedFilters] = useState({});
 
@@ -299,15 +302,3 @@ const Search = ({ jobs }) => {
 };
 
 export default Search;
-
-export const getServerSideProps = async () => {
-  const res = await fetch(`http://localhost:3000/api/jobs`);
-
-  const jobs = await res.json();
-
-  return {
-    props: {
-      jobs,
-    },
-  };
-};

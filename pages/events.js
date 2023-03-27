@@ -12,13 +12,15 @@ import EventsList from "../components/Events/EventsList";
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
 import { server } from "../config";
-const Events = ({ events }) => {
+import useFetch from "./api/useFetch";
+const Events = () => {
   const { dispatch, isEventFiltersOpen } = useUiContext();
   const handleCloseEventFilters = (e) => {
     if (e.target.classList.contains("filter-modal"))
       dispatch({ type: actioTypes.closeEventFilters });
   };
 
+  const { data: events } = useFetch(`${server}/api/meetups`);
   // Pagination-----------------------------------------------------------------------------------------------------
   const [offset, setOffset] = useState(0);
   const eventsPerPage = 4;
@@ -109,15 +111,3 @@ const Events = ({ events }) => {
 };
 
 export default Events;
-
-export const getStaticProps = async () => {
-  const res = await fetch(`${server}/api/meetups`);
-
-  const events = await res.json();
-
-  return {
-    props: {
-      events,
-    },
-  };
-};

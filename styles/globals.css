@@ -4,12 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Testing on phone offline */
-@font-face {
-  font-family: myFont;
-  src: url("../public/Questrial-Regular.ttf") format("truetype");
-}
-
 html {
   @apply scroll-smooth;
 }
@@ -28,7 +22,6 @@ html {
 
 body {
   @apply font-questrial bg-main text-slate-700 dark:bg-dark-main dark:text-slate-300;
-  font-family: myFont;
 }
 
 /* General styles */

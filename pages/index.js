@@ -7,8 +7,10 @@ import FeaturedCompanies from "../components/home/FeaturedCompanies";
 import Recommended from "../components/home/Recommended";
 import Schedule from "../components/home/Schedule";
 import { server } from "../config";
+import useFetch from "./api/useFetch";
 
-const Home = ({ jobs }) => {
+const Home = () => {
+  const { data: jobs } = useFetch(`${server}/api/jobs`);
   return (
     <div>
       <h1 className="font-bold text-2xl">Welcome, Brian</h1>
@@ -56,15 +58,3 @@ const Home = ({ jobs }) => {
 };
 
 export default Home;
-
-export const getStaticProps = async () => {
-  const res = await fetch(`${server}/api/jobs`);
-
-  const jobs = await res.json();
-
-  return {
-    props: {
-      jobs,
-    },
-  };
-};

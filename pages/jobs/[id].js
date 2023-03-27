@@ -8,9 +8,11 @@ import { useRouter } from "next/router";
 import useFetch from "../api/useFetch";
 import { server } from "../../config";
 
-const SingleJob = ({ job }) => {
+const SingleJob = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  const { data: job } = useFetch(`${server}/api/jobs/${id}`);
 
   const {
     title,
@@ -155,28 +157,3 @@ const SingleJob = ({ job }) => {
 };
 
 export default SingleJob;
-
-export const getStaticProps = async ({ params }) => {
-  const res = await fetch(`${server}/api/jobs/${params.id}`);
-
-  const job = await res.json();
-
-  return {
-    props: {
-      job,
-    },
-  };
-};
-
-export const getStaticPaths = async () => {
-  const res = await fetch(`${server}/api/jobs`);
-
-  const jobs = await res.json();
-  const ids = jobs.map((job) => job.id);
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
